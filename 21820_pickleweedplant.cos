@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+** Fixes by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -129,6 +130,9 @@ scrp 2 23 21820 1
 	new: simp 2 3 21820 "gp_pickleweed_plant_JESS" 4 10 rand 2800 2900
 ** attr: mouseable 2 + collide 64 + physics 128 = 194
 	attr 194
+*** be edible!
+*** carryable 32 + eatable 16 = 48
+	bhvr 48
 ** Will go through some walls
 	perm 80
 ** Physics
@@ -183,6 +187,8 @@ scrp 2 23 21820 9
 				new: simp 2 3 21820 "gp_pickleweed_plant_JESS" 4 10 rand 800 900
 ** attr: mouseable 2 + collide 64 + physics 128 = 194
 				attr 194
+*** be edible...again...
+				bhvr 48
 ** Will go through some walls
 				perm 80
 ** Physics
@@ -407,7 +413,8 @@ scrp 2 3 21820 12
 	doif crea from eq 1
 		targ from
 		stim writ from 77 1
-		chem 98 50
+*** fixed syntax
+		chem 98 0.2
 		targ ownr
 	endi
 	wait 25

@@ -46,6 +46,8 @@
 ** Egg creator script
 scrp 2 18 21853 1000
 	attr 192
+*** be edible
+	bhvr 48
 	elas 0
 	fric 100
 	setv ov55 2
@@ -60,8 +62,12 @@ endm
 *
 ** Fish creator script
 scrp 2 16 21853 1000
+*** be a critter
+	cato 15
 	frat 4
 	attr 195
+*** give critter stims
+	bhvr 59
 	elas 50
 	accg 0
 	aero 60
@@ -294,6 +300,64 @@ scrp 2 18 21853 255
 endm
 
 
+**
+** EATEN SCRIPT
+**
+
+scrp 2 16 21853 12
+	lock
+	wait 10
+** stim "eaten animal"
+	stim writ from 80 1
+	sndc "elt0"
+	wait 10
+	kill ownr
+	unlk
+endm
+
+**
+** PUSH SCRIPT
+**
+
+scrp 2 16 21853 1
+** stim "push critter"
+	stim writ from 85 1
+	velo rand 3 -3 rand -1 1
+endm
+
+**
+** PULL SCRIPT
+**
+
+scrp 2 16 21853 2
+** stim "push critter"
+	stim writ from 85 1
+	velo rand 3 -3 rand -1 1
+endm
+
+**
+** HIT SCRIPT
+**
+
+scrp 2 16 21853 3
+	sndc "spnk"
+** stim "hit animal"
+	stim writ from 87 1
+	velo rand 3 -3 rand -1 1
+endm
+
+** eaten egg
+
+scrp 2 18 21853 12
+	lock
+	wait 10
+** stim "eaten animal"
+	stim writ from 80 1
+	sndc "chwp"
+	wait 10
+	kill ownr
+	unlk
+endm
 
 
 
@@ -309,4 +373,9 @@ enum 2 18 21853
 	kill targ
 next
 scrx 2 16 21853 9
-scrx 2 16 21853 6
+scrx 2 16 21853 1
+scrx 2 16 21853 2
+scrx 2 16 21853 3
+scrx 2 16 21853 12
+scrx 2 18 21853 9
+scrx 2 18 21853 12

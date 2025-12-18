@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+** fixes by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -55,7 +56,8 @@ scrp 2 23 21821 1000
 	fric 80
 	elas 20
 ** bhvr: act1 + hit 8 = 9
-	bhvr 9
+*** + pull = 11
+	bhvr 11
 
 ** Create the spawning spots
 	pat: dull 2 "gp_dragonfruit_plant_JESS" 14 6 44 2
@@ -192,6 +194,66 @@ scrp 2 23 21821 1
 	unlk
 
 endm
+
+*
+** PULL SCRIPT
+
+scrp 2 23 21821 2
+
+	doif from eq pntr
+		mesg writ pntr 101
+	else
+		stim writ from 90 1
+	endi
+
+
+	setv va05 posl
+	setv va06 post
+
+	lock
+
+** animate the button
+	part 8
+	frat 10
+	anim [1 1 1 0]
+
+** animate the vendor opening
+	part 7
+	frat 8
+	anim [1 2 3 4 ]
+	over
+
+** create the macaroon
+	addv va05 55
+	addv va06 159
+
+	inst
+	pose 3
+	new: simp 2 11 21821 "gp_dragonfruit_plant_JESS" 1 19 rand 2000 2200
+** attr: mouseable 2 + collide 64 + physics 128 = 194, bhvr eat 16 + pickup 32 = 48
+	attr 194
+	bhvr 48
+** won't go through walls
+	perm 100
+** Physics
+	accg 0.6
+	aero 1
+	fric 25
+	elas 40
+** emit fat
+	emit 8 0.6
+** tick before disappearing
+	tick rand 1200 1800
+	mvto va05 va06
+
+	targ ownr
+	part 7
+	anim [ 3 2 1 0]
+	over
+	unlk
+
+endm
+
 
 
 *
@@ -559,6 +621,7 @@ next
 scrx 2 23 21821 9
 scrx 2 23 21821 3
 scrx 2 23 21821 1
+scrx 2 23 21821 2
 scrx 2 23 21821 1000
 
 scrx 2 4 21821 9

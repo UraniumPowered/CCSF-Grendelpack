@@ -1,4 +1,5 @@
 * Script 1 extracted from cheesemac.agents by Mirality REVELATION
+** fix: cheese bhvr
 
 *
 ** Creator script
@@ -32,7 +33,7 @@ scrp 2 23 21811 1
 	inst
 	new: simp 2 11 21811 "gp_ccmac" 1 va00 8000
 	attr 199
-	bhvr 59
+	bhvr 48
 	perm 100
 	elas 40
 	accg 5
@@ -66,7 +67,7 @@ scrp 2 23 21811 2
 	inst
 	new: simp 2 11 21811 "gp_ccmac" 1 va00 8000
 	attr 199
-	bhvr 59
+	bhvr 48
 	perm 100
 	elas 40
 	accg 5

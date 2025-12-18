@@ -151,7 +151,7 @@ scrp 2 4 21807 9
 		new: simp 2 8 21807 "gp_dhelevators_CS" 2 16 rand 1500 3000
 ** attr: carryable 2, bhvr eat 16 + pickup 32 = 48
 		attr 2
-**bhvr 48
+		bhvr 48
 ** emit fruit smell
 		emit 6 0.7
 ** Physics etc will be set after the tick or after pickup
@@ -196,7 +196,10 @@ endm
 *
 
 scrp 2 8 21807 12
+	lock
+	wait 5
 	stim writ from 78 1
+	wait 5
 	kill ownr
 endm
 

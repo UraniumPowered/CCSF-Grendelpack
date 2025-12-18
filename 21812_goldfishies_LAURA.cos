@@ -103,8 +103,8 @@ endm
 *egg eat script
 scrp 2 18 21812 12
 	sndc "chwp"
-** "I have eaten protein and fat"
-	stim writ from 79 1
+** "I have eaten an animal"
+	stim writ from 80 1
 *****GH says: eggs disappear once eaten ;)
 	kill ownr
 endm
@@ -144,7 +144,8 @@ scrp 2 18 21812 9
 *install goldfish script:
 				new: simp 2 15 21812 "gp_goldfishies_JESS" 16 va99 rand 150 650
 *goldfish properties:
-				bhvr 48
+**now can be played with
+				bhvr 59
 				attr 195
 				accg 0
 				elas 25
@@ -575,10 +576,32 @@ endm
 
 *goldfish eat script
 scrp 2 15 21812 12
+	lock
 	sndc "chwp"
 ** 'I have eaten a protein-rich critter'
 	stim writ from 80 1
 	kill ownr
+endm
+
+*goldfish push script
+scrp 2 15 21812 1
+	sndc "drip"
+** 'I have played with a critter'
+	stim writ from 86 1
+endm
+
+*goldfish pull script
+scrp 2 15 21812 2
+	sndc "drip"
+** 'I have played with a critter'
+	stim writ from 86 1
+endm
+
+*goldfish hit script
+scrp 2 15 21812 2
+	sndc "spnk"
+** 'I have hit a critter'
+	stim writ from 87 1
 endm
 
 
@@ -602,3 +625,6 @@ scrx 2 18 21812 9
 scrx 2 15 21812 9
 scrx 2 15 21812 5
 scrx 2 15 21812 12
+scrx 2 15 21812 1
+scrx 2 15 21812 2
+scrx 2 15 21812 3

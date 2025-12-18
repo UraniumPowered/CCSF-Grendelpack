@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+*** Updated by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -50,7 +51,8 @@ scrp 2 23 21802 1000
 ** Attributes: mouseable 2 + collide 64 + physics 128 = 194
 	attr 194
 ** bhvr: act1 + hit 8 = 9
-	bhvr 9
+*** + pull 2 = 11
+	bhvr 11
 	perm 100
 	accg 2
 	aero 1
@@ -124,6 +126,41 @@ endm
 *
 ** Activate 
 scrp 2 23 21802 1
+
+	doif from eq pntr
+		mesg writ pntr 101
+	else
+** stim activate machinery
+		stim writ from 90 1
+	endi
+
+	part 1
+	anim [1 0]
+	setv va00 posx
+	addv va00 rand -5 5
+	setv va01 posy
+	addv va01 rand -5 5
+	new: simp 2 3 21802 "gp_hair_algae_JESS" 1 0 rand 1000 3000
+** attr: mouseable 2 + collide 64 + physics 128 = 194
+	attr 194
+** bhvr: eat 16 + pickup 32 = 48
+	bhvr 48
+** Will go through most walls
+	perm 30
+** Physics
+	accg 0.2
+	aero 10
+	fric 50
+	elas 40
+	velo rand -20 20 -5
+	tick 300
+	setv ov00 0
+	mvsf va00 va01
+endm
+
+*
+** Pull 
+scrp 2 23 21802 2
 
 	doif from eq pntr
 		mesg writ pntr 101
@@ -331,6 +368,7 @@ enum 2 4 21802
 next
 
 scrx 2 23 21802 1
+scrx 2 23 21802 2
 scrx 2 23 21802 3
 scrx 2 3 21802 9
 scrx 2 3 21802 12

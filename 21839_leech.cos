@@ -1,5 +1,6 @@
 **
-** Piranha
+** Leech!
+** Now a bug, as it should be -UP
 **
 **
 
@@ -8,6 +9,10 @@
 scrp 2 16 21839 1000
 	frat 4
 	attr 195
+*** this was meant to be a bug
+	cato 13
+*** give it critter stims (push pull hit eat pickup)
+	bhvr 59
 	elas 50
 	accg 0
 	aero 60
@@ -102,6 +107,8 @@ scrp 2 16 21839 9
 					setv va01 post
 					new: simp 2 18 21839 "gp_crayleech_JESS" 1 32 10
 					attr 192
+*** now can eat these eggs
+					bhvr 48
 					elas 0
 					fric 100
 					setv ov55 2
@@ -189,8 +196,10 @@ scrp 2 18 21839 9
 ** Create fish
 		inst
 		new: simp 2 16 21839 "gp_crayleech_JESS" 16 33 1000
+		cato 13
 		frat 4
 		attr 195
+		bhvr 59
 		elas 50
 		accg 0
 		setv ov10 rand 0 1
@@ -238,6 +247,64 @@ scrp 2 16 21839 5
 	setv ov99 0
 endm
 
+**
+** EATEN SCRIPT
+**
+
+scrp 2 16 21839 12
+	lock
+	wait 10
+** stim "eaten animal"
+	stim writ from 80 1
+	sndc "elt0"
+	wait 10
+	kill ownr
+	unlk
+endm
+
+**
+** PUSH SCRIPT
+**
+
+scrp 2 16 21839 1
+** stim "push bug"
+	stim writ from 86 1
+	velo rand 3 -3 rand -1 1
+endm
+
+**
+** PULL SCRIPT
+**
+
+scrp 2 16 21839 2
+** stim "push bug"
+	stim writ from 86 1
+	velo rand 3 -3 rand -1 1
+endm
+
+**
+** HIT SCRIPT
+**
+
+scrp 2 16 21839 3
+	sndc "spnk"
+** stim "hit animal"
+	stim writ from 87 1
+	velo rand 3 -3 rand -1 1
+endm
+
+** eaten egg
+
+scrp 2 18 21839 12
+	lock
+	wait 10
+** stim "eaten animal"
+	stim writ from 80 1
+	sndc "chwp"
+	wait 10
+	kill ownr
+	unlk
+endm
 
 
 **

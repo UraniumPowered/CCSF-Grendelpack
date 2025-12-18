@@ -10,7 +10,8 @@
 * Tree creation script
 scrp 2 8 21816 1000
 	attr 199
-	bhvr 59
+	* fix bhvr
+	bhvr 48
 	accg 5
 	aero 5
 	fric 100
@@ -92,7 +93,8 @@ scrp 2 8 21816 9
 			new: simp 2 4 21816 "gp_frootfruit_CS" 1 0 978
 			attr 192
 *Creatures can push, pull, or hit
-			bhvr 3
+**bhvr was wrong!
+			bhvr 11
 			accg 5
 			aero 5
 			fric 100
@@ -113,7 +115,7 @@ scrp 2 8 21816 9
 		setv va41 posy
 		new: simp 2 10 21816 "gp_frootfruit_CS" 3 2 979
 		attr 199
-		bhvr 59
+		bhvr 48
 		accg 5
 		aero 5
 		fric 100
@@ -127,10 +129,17 @@ endm
 
 *Push and pull script
 scrp 2 4 21816 1
+	sndc "rstl"
 	stim writ targ 84 1
 endm
 
 scrp 2 4 21816 2
+	sndc "rstl"
+	stim writ targ 84 2
+endm
+
+scrp 2 4 21816 3
+	sndc "rstl"
 	stim writ targ 84 2
 endm
 
@@ -152,7 +161,7 @@ scrp 2 4 21816 9
 			addv va91 rand -25 -30
 			new: simp 2 8 21816 "gp_frootfruit_CS" 1 1 980
 			attr 199
-			bhvr 59
+			bhvr 48
 			accg 0
 			aero 5
 			fric 100
@@ -192,6 +201,7 @@ endm
 scrp 2 10 21816 12
 *not so nom
 	lock
+	sndc "chwp"
 	stim writ from 81 1
 	kill ownr
 endm

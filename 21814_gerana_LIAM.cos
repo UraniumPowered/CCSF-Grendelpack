@@ -26,7 +26,8 @@ scrp 2 15 21814 1000
 		endi
 	endi
 	pose 0
-	attr 194
+** be invisible! 194 + 16
+	attr 210
 	elas .1
 	accg 1
 	perm 100
@@ -256,7 +257,8 @@ endm
 
 scrp 2 18 21814 1000
 	inst
-	attr 194
+* be invisible! 194 + 16
+	attr 210
 	elas .1
 	accg 1
 	perm 100

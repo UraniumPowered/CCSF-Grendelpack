@@ -96,8 +96,8 @@ scrp 2 14 21845 3
 *check if a Creature is hitting
 	targ from
 	doif fmly eq 4
-*Stim the Creature with: Interacted with pest
-		stim writ targ 88 1
+*Stim the Creature with: Hit animal
+		stim writ targ 87 1
 		snde "stng"
 	endi
 endm
@@ -274,9 +274,9 @@ scrp 2 14 21845 12
 	lock
 	targ from
 	doif fmly eq 4
-		stim writ targ 88 1
+*		stim writ targ 88 1
 		stim writ targ 80 1
-		snde "stng"
+		snde "chwp"
 	endi
 *always remove the owner from the world
 	kill ownr

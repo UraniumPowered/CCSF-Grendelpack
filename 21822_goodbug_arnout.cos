@@ -94,6 +94,7 @@ scrp 2 13 21822 2
 endm
 
 scrp 2 13 21822 3
+	sndc "spnk"
 	velo 0 rand -3 -5
 	targ from
 	doif fmly eq 4

@@ -22,9 +22,11 @@ scrp 2 21 21810 1
 	lock
 	doif ov10 eq 1
 		stim writ from 97 1
+		snde "rstl"
 		anim [2 3 4 1 2 3 4]
 	else
 		stim writ from 97 1
+		snde "rstl"
 		anim [2 3 4 1 2 3 4]
 	endi
 	over
@@ -35,10 +37,12 @@ scrp 2 21 21810 2
 	lock
 	doif ov10 eq 1
 		stim writ from 97 0.5
+		snde "rstl"
 		anim [2 3 4]
 		setv ov10 2
 	else
 		stim writ from 97 0.5
+		snde "rstl"
 		anim [2 3 4]
 		setv ov10 1
 	endi
@@ -47,7 +51,8 @@ scrp 2 21 21810 2
 endm
 
 scrp 2 21 21810 3
-	stim writ from 0 1
+	snde "rstl"
+	stim writ from 97 1
 endm
 
 rscr

@@ -49,7 +49,8 @@
 scrp 2 3 21804 1000
 inst
 	new: simp 2 3 21804 "gp_licorice_quill_CS" 1 0 rand 1000 1500
-** attr: mouseable 2 + collide 64 + physics 128 = 194** bhvr: pickup 32 & eat 16 = 48
+** attr: mouseable 2 + collide 64 + physics 128 = 194
+** bhvr: pickup 32 & eat 16 = 48
 			attr 194
 			bhvr 48
 			perm 60

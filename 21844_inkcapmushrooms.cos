@@ -24,8 +24,9 @@ scrp 1 1 21844 9
 		reps 2
 			new: simp 2 3 21844 "gp_inkcap_mushroom_JESS" 1 0 600
 *picked up creature and hand, gravity and boundaries
+**fix bhvr
 			attr 195
-			bhvr 16
+			bhvr 48
 			elas 0
 			fric 100
 			accg 1
@@ -130,7 +131,7 @@ scrp 2 3 21844 9
 		setv va90 perm
 		new: simp 2 8 21844 "gp_inkcap_mushroom_JESS" 62 1 600
 		attr 195
-		bhvr 16
+		bhvr 48
 		elas 0
 		fric 100
 		perm va90
@@ -210,7 +211,7 @@ scrp 2 8 21844 9
 			new: simp 2 3 21844 "gp_inkcap_mushroom_JESS" 1 0 600
 *picked up creature and hand, gravity and boundaries
 			attr 195
-			bhvr 16
+			bhvr 48
 			elas 0
 			fric 100
 			perm rand 40 70
@@ -283,7 +284,7 @@ scrp 2 8 21844 12
 		new: simp 2 3 21844 "gp_inkcap_mushroom_JESS" 1 0 600
 *picked up creature and hand, gravity and boundaries
 		attr 195
-		bhvr 16
+		bhvr 48
 		elas 0
 		fric 100
 		perm rand 30 70

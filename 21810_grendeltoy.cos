@@ -25,10 +25,12 @@ endm
 
 scrp 2 21 21810 2
 	doif ov10 eq 1
+		stim writ from 97 1
 		anim [0 1 2]
 		sndc "cp_2"
 		setv ov10 2
 	else
+		stim writ from 97 1
 		anim [2 1 0]
 		sndc "cp_2"
 		setv ov10 1
@@ -36,7 +38,7 @@ scrp 2 21 21810 2
 endm
 
 scrp 2 21 21810 3
-	stim writ from 0 1
+	stim writ from 97 1
 endm
 
 rscr

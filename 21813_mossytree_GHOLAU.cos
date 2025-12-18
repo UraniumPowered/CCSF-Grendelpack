@@ -23,7 +23,7 @@ endm
 scrp 2 4 21813 1000
 	setv ov55 0
 	setv ov56 1
-	bhvr 3
+	bhvr 11
 	attr 0
 	perm 40
 	emit 7 1
@@ -105,17 +105,19 @@ endm
 
 
 *seed pick up script
-scrp 2 3 21813 4
+*** no need for this
+*scrp 2 3 21813 4
 ** "I have gotten"
-	stim writ from 18 1
-endm
+*	stim writ from 18 1
+*endm
 
 
 *seed drop script
-scrp 2 3 21813 5
+*** no need for this
+*scrp 2 3 21813 5
 ** "I have dropped" 
-	stim writ from 19 1
-endm
+*	stim writ from 19 1
+*endm
 
 
 *seed collision script
@@ -162,7 +164,8 @@ scrp 2 3 21813 9
 				bhvr 3
 				attr 0
 				perm 40
-				emit 7 1
+*** no smell for you
+*				emit 7 1
 				accg 3
 				elas 25
 				fric 90
@@ -191,6 +194,7 @@ endm
 
 *tree push script
 scrp 2 4 21813 1
+	snde "rstl"
 ** "I have pushed friendly plant"
 	stim writ from 84 1
 endm
@@ -198,7 +202,15 @@ endm
 
 *tree pull script
 scrp 2 4 21813 2
+	snde "rstl"
 ** "I have pulled friendly plant"
+	stim writ from 84 1
+endm
+
+*tree hit script
+scrp 2 4 21813 3
+	snde "rstl"
+** "I have hit friendly plant"
 	stim writ from 84 1
 endm
 
@@ -222,3 +234,4 @@ scrx 2 3 21813 12
 scrx 2 3 21813 9
 scrx 2 4 21813 1
 scrx 2 4 21813 2
+scrx 2 4 21813 3

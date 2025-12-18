@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+** fixes by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -73,9 +74,10 @@ scrp 2 23 21826 1000
 	fric 80
 	elas 20
 ** behaviour: act1 + hit 8 = 9
-	bhvr 9
+*** + pull = 11
+	bhvr 11
 ** emit a tiny bit of food smell
-	emit 8 0.05
+*	emit 8 0.05
 
 	part 2
 	frat 7
@@ -171,6 +173,67 @@ scrp 2 23 21826 1
 	unlk
 
 endm
+
+*
+** Creature pull
+
+scrp 2 23 21826 2
+	doif from eq pntr
+		mesg writ pntr 101
+	else
+		stim writ from 90 1
+	endi
+
+	setv va00 rand 0 1
+	setv va05 posl
+	setv va06 post
+
+	lock
+
+	setv va07 va00
+	addv va07 3
+** animate the button
+	part va07
+	frat 3
+	anim [1 0 1 0]
+	over
+	anim [0 0]
+
+** Vend tail
+	targ ownr
+
+	addv va05 41
+	addv va06 59
+
+	setv va07 va00
+	addv va07 11
+
+	setv va08 va00
+	addv va08 11
+
+	inst
+	new: simp 2 va08 21826 "gp_crayfishtail_vendor_JESS" 2 va07 rand 2000 2200
+** attr: mouseable 2 + collide 64 + physics 128 = 194, bhvr eat 16 + pickup 32 = 48
+	attr 194
+	bhvr 48
+** won't go through walls
+	perm 100
+** Physics
+	accg 0.6
+	aero 1
+	fric 25
+	elas 40
+** set category to "food"
+	cato 11
+** emit fat
+	emit 8 0.6
+** tick before disappearing
+	tick rand 1200 1800
+	mvto va05 va06
+	unlk
+
+endm
+
 
 
 ** button1 push
@@ -332,6 +395,7 @@ next
 scrx 2 23 21826 9
 scrx 2 23 21826 3
 scrx 2 23 21826 1
+scrx 2 23 21826 2
 scrx 2 11 21826 9
 scrx 2 11 21826 12
 scrx 2 12 21826 9

@@ -168,6 +168,7 @@ scrp 2 14 21843 3
 	endi
 	targ ownr
 	velo 0 rand -3 -7
+	sndc "spnk"
 	slow
 endm
 

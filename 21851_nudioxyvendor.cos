@@ -45,7 +45,8 @@ scrp 2 23 21851 1000
 ** Attributes: mouseable 2 + collide 64 + physics 128 = 194
 	attr 194
 ** bhvr: act1 1 + hit 8 = 9
-	bhvr 9
+*** + pull = 11
+	bhvr 11
 ** Physics
 	perm 100
 	accg 3
@@ -122,6 +123,25 @@ scrp 2 23 21851 1
 	unlk
 endm
 
+** pull
+
+scrp 2 23 21851 2
+	lock
+	doif from eq pntr
+		mesg writ pntr 101
+	else
+		stim writ from 90 1
+	endi
+	inst
+	doif rand 0 1 eq 0
+		mesg writ ownr 501
+	else
+		mesg writ ownr 500
+	endi
+	slow
+	unlk
+endm
+
 
 *
 ** Removal script 
@@ -138,4 +158,5 @@ next
 
 scrx 2 23 21851 9
 scrx 2 23 21851 3
+scrx 2 23 21851 2
 scrx 2 23 21851 1

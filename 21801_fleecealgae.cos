@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+*** Updated by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -50,7 +51,8 @@ scrp 2 23 21801 1000
 ** Attributes: mouseable 2 + collide 64 + physics 128 = 194
 	attr 194
 ** bhvr: act1 + hit 8 = 9
-	bhvr 9
+*** + pull 2 = 11
+	bhvr 11
 
 	perm 100
 	accg 1
@@ -91,6 +93,45 @@ endm
 *
 ** Activate 
 scrp 2 23 21801 1
+	lock
+	doif from eq pntr
+		mesg writ pntr 101
+	else
+		stim writ from 90 1
+	endi
+
+	setv va00 posl
+	addv va00 rand 8 47
+	setv va01 posb
+	subv va01 rand 26 61
+	part 1
+	anim [1 0]
+	new: simp 2 3 21801 "gp_fleece_algae_JESS" 1 0 rand 1000 3000
+** attr: mouseable 2 + collide 64 + physics 128 = 194
+	attr 194
+** bhvr: eat 16 + pickup 32 = 48
+	bhvr 48
+** Will go through most walls
+	perm 30
+** Physics
+	accg 0.2
+	aero 10
+	fric 50
+	elas 60
+	setv va20 rand 5 15
+	doif rand 0 1 eq 0
+		negv va20
+	endi
+	
+	velo va20 -5
+	tick 300
+	setv ov00 0
+	mvsf va00 va01
+endm
+
+*
+** Pull
+scrp 2 23 21801 2
 	lock
 	doif from eq pntr
 		mesg writ pntr 101
@@ -284,6 +325,7 @@ enum 2 4 21801
 next
 
 scrx 2 23 21801 1
+scrx 2 23 21801 2
 scrx 2 23 21801 3
 scrx 2 3 21801 9
 scrx 2 3 21801 12

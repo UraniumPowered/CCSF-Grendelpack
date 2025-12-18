@@ -151,7 +151,8 @@ scrp 2 3 21815 9
 			subv va01 3
 			new: simp 2 4 21815 "gp_blush_shrub_CS" 9 1 1000
 			attr 192
-			bhvr 3
+			* make hittable
+			bhvr 11
 			accg 0.5
 			elas 0
 			fric 100
@@ -183,6 +184,7 @@ scrp 2 3 21815 12
 endm
 
 scrp 2 4 21815 1
+	sndc "rstl"
 	addv ov50 rand 3 5
 	targ from
 	doif fmly eq 4
@@ -191,6 +193,16 @@ scrp 2 4 21815 1
 endm
 
 scrp 2 4 21815 2
+	sndc "rstl"
+	addv ov50 rand 3 5
+	targ from
+	doif fmly eq 4
+		stim writ from 84 1
+	endi
+endm
+
+scrp 2 4 21815 3
+	sndc "rstl"
 	addv ov50 rand 3 5
 	targ from
 	doif fmly eq 4
@@ -224,7 +236,8 @@ scrp 2 4 21815 9
 			new: simp 2 3 21815 "gp_blush_shrub_CS" 1 0 1000
 			velo rand -10 10 rand -8 -12
 			attr 195
-			bhvr 59
+			* fix bhvr
+			bhvr 48
 			accg 0.5
 			elas 0
 			fric 100
@@ -255,4 +268,5 @@ scrx 2 3 21815 9
 scrx 2 3 21815 12
 scrx 2 4 21815 1
 scrx 2 4 21815 2
+scrx 2 4 21815 3
 scrx 2 4 21815 9

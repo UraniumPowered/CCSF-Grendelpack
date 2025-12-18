@@ -3,6 +3,7 @@
 **
 ** Sprites by Jesseth, coding by Pilla.
 **
+*** Further updates by UP
 **
 ** Feel free to use this code however you want.
 **
@@ -55,7 +56,8 @@ scrp 2 23 21800 1000
 	fric 80
 	elas 20
 ** Behaviour: activate 1 + hit 8 = 9
-	bhvr 9
+*** + pull 2 = 11
+	bhvr 11
 ** Create the waving moss
 	pat: dull 1 "gp_agressive_moss_JESS" 47 0 0 1
 ** Create the buttons
@@ -84,6 +86,51 @@ endm
 ** Activate (creature push)
 
 scrp 2 23 21800 1
+** stim "activated machine"
+	stim writ from 90 1
+** Vend seed
+
+	setv va03 posx
+	subv va03 1
+	setv va04 posb
+	subv va04 4
+
+	setv va00 rand 0 3
+	doif va00 eq 0
+		setv va01 10
+	elif va00 eq 1
+		setv va01 22
+	elif va00 eq 2
+		setv va01 34
+	elif va00 eq 3
+		setv va01 45
+	endi
+
+	inst
+	new: simp 2 3 21800 "gp_agressive_moss_JESS" 1 va01 rand 1000 3000
+** attr: mouseable 2 + collide 64 + physics 128 = 194
+	attr 194
+** bhvr: eat 16 + pickup 32 = 48
+	bhvr 48
+
+
+** Will go through some walls
+	perm 70
+** Physics
+	accg 0.2
+	aero 0.2
+	fric 60
+	elas 40
+	tick 2000
+	velo rand -3 3 -2
+	setv ov00 va00
+	mvsf va03 va04
+	slow
+endm
+
+*
+** Pull (creature pull)
+scrp 2 23 21800 2
 ** stim "activated machine"
 	stim writ from 90 1
 ** Vend seed
@@ -846,3 +893,11 @@ next
 enum 2 4 21800
 	kill targ
 next
+
+scrx 2 3 21800 12
+scrx 2 3 21800 9
+scrx 2 4 21800 9
+scrx 2 23 21800 1000
+scrx 2 23 21800 1
+scrx 2 23 21800 2
+scrx 2 23 21800 3

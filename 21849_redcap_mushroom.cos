@@ -1,23 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 *Mushroom
 *reps 3
 *	new: simp 2 3 21849 "gp_redcap_mushroom" 18 7 rand 200 6000
@@ -39,7 +19,7 @@ scrp 1 1 21849 9
 			new: simp 2 3 21849 "gp_redcap_mushroom" 18 0 1000
 			rnge 600
 			attr 195
-			bhvr 16
+			bhvr 48
 			elas 0.5
 			aero 2
 			accg 0.05
@@ -57,7 +37,9 @@ scrp 1 1 21849 9
 endm
 
 scrp 2 4 21849 1000
-	bhvr 16
+* classed as food now to match with inkcap mushroom
+	cato 11
+	bhvr 48
 	attr 193
 	perm 40
 	emit 7 1
@@ -131,7 +113,7 @@ scrp 2 4 21849 9
 				new: simp 2 3 21849 "gp_redcap_mushroom" 18 0 1000
 				rnge 600
 				attr 195
-				bhvr 16
+				bhvr 48
 				elas 0.5
 				aero 2
 				accg 0.05
@@ -218,8 +200,9 @@ scrp 2 3 21849 9
 endm
 
 scrp 2 4 21849 12
+	lock
 	sndc "chwp"
-	stim writ from 77 .5
+	stim writ from 79 .5
 	chem 10 .5
 	chem 12 .5
 	targ ownr
@@ -227,6 +210,7 @@ scrp 2 4 21849 12
 endm
 
 scrp 2 3 21849 12
+	lock
 	sndc "chwp"
 	stim writ from 77 .5
 	chem 10 .4
