@@ -101,6 +101,9 @@ scrp 2 23 21829 1
 	bhvr 48
 	tick 1800
 	velo rand -3 3 0
+	doif tmvt va05 va06 ne 1
+		kill targ
+	endi
 	mvsf va05 va06
 endm
 
@@ -262,6 +265,9 @@ scrp 2 23 21829 9
 		fric 50
 		elas 30
 		tick rand 1200 2000
+		doif tmvt va05 va06 ne 1
+			kill targ
+		endi
 		mvsf va05 va06
 		slow
 	retn

@@ -2,7 +2,8 @@
 **
 ** Shortcut teleporters
 ** If neither meso or main injected, create doors to/from capillata
-doif game "gpmain" ne 1 and game "gpmeso" ne 1 and game "gpgrendelhideout" ne 1
+doif game "gpmain" ne 1 and game "gpmeso" ne 1
+	inst
 ** Door agent injector > gh
 	new: comp 2 2 21808 "gp_radioteleport" 3 0 100
 	setv ov00 50
@@ -29,6 +30,7 @@ doif game "gpmain" ne 1 and game "gpmeso" ne 1 and game "gpgrendelhideout" ne 1
 	frat 3
 	bhvr 1
 	mvsf game "CreatorX" game "CreatorY"
+	slow
 endi
 
 

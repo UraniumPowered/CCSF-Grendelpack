@@ -76,7 +76,7 @@ scrp 3 3 21823 9
 		sets ov90 pray next "EGGS" va97
 		sets va97 ov90
 		sets va01 pray agts ov90 "Genetics File" ""
-		sets va03 strl va01
+		setv va03 strl va01
 		doif va03 >= 4
 			sets va02 subs va01 1 4
 			doif va02 eq "gren"

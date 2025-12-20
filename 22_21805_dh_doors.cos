@@ -3,8 +3,8 @@
 **
 
 ** Check if meso injected
-doif game "gpmeso" eq 1 and game "gpdeserthideout" ne 1
-**
+doif game "gpmeso" eq 1
+	inst
 ** The door inside desert hideout
 	new: comp 2 2 21805 "gp_dhelevators_CS" 16 19 1
 ** Activateable
@@ -53,6 +53,7 @@ doif game "gpmeso" eq 1 and game "gpdeserthideout" ne 1
 	anim [0]
 	mvto 23520 440
 	link va00 grap posx posy 60
+	slow
 endi
 
 **

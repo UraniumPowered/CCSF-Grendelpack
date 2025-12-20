@@ -195,8 +195,8 @@ doif targ eq null
 	link va01 va02 80
 
 ** Change the capillata favourite place icon
-	rtar 1 4 11
-	gall "gp_favicons_capillata" 1
+*	rtar 1 4 11
+*	gall "gp_favicons_capillata" 1
 endi
 
 
@@ -871,7 +871,7 @@ doif game "gpmeso" ne 1
 	next
 
 ** Change the capillata favourite place icon
-	rtar 1 4 11
-	gall "fav_place_corridor" 1
+*	rtar 1 4 11
+*	gall "fav_place_corridor" 1
 
 endi

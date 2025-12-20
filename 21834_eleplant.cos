@@ -1,5 +1,6 @@
 **
 ** Elevator creator timer
+** Rewrite provided by Risen Angel
 **
 
 scrp 3 1 21836 9
@@ -9,6 +10,7 @@ scrp 3 1 21836 9
 		setv va00 ov00
 		setv va01 posl
 		setv va02 post
+*		gsub get_id
 **family: 3 1 lift
 		new: comp 3 1 21834 "gp_eleplant_JESS" 1 0 rand 200 500
 ** set bhvr (act1 act2 = 3)
@@ -21,7 +23,7 @@ scrp 3 1 21836 9
 		pat: dull 5 "gp_eleplant_JESS" 1 0 78 1
 		pat: dull 6 "gp_eleplant_JESS" 4 0 0 1
 		mvto va01 va02
-		setv ov00 va00
+		setv ov00 va03
 		setv ov01 room targ
 ** enabled/disabled
 		setv ov02 1
@@ -47,6 +49,28 @@ scrp 3 1 21836 9
 		kill targ
 	next
 
+** Assign a system ID
+*	subr get_id
+**     Set initial system ID
+*		setv va03 0
+**     Now check for other Eleplant systems
+*		loop
+*			setv va99 0
+*			enum 3 1 18786
+*				doif targ <> null
+*					doif ov00 = va01
+*						setv va99 1
+*					endi
+*				endi
+*			next
+*
+**           If this ID is already in use, move onto the next one
+*			doif va99 = 1
+*				addv va03 1
+*			endi
+*		untl va99 = 0
+*	retn
+*
 endm
 
 
@@ -54,89 +78,12 @@ endm
 
 **
 ** LIFT EVENT SCRIPTS
+** these are all RA's doing - thank you!
 **
-**
-
-*
-** PULL (go down)
-scrp 3 1 21834 2
-	lock
-* Check if lift is enabled
-	doif ov02 ne 1
-		stop
-	endi
-
-* Set lift variable to warp to
-	seta va50 targ
-	setv va00 ov00
-	setv va01 posy
-	setv va02 0
-* Check all lifts to find one that's lower
-	inst
-	enum 3 1 21834
-** check if same elevator group
-		doif ov00 eq va00
-** check if enabled
-			doif ov02 eq 1
-** check if posy > original lift (lower)
-				doif posy gt va01
-** check if va02=0 or va02 greater than posy (lower lift available: take higher up one)
-					doif va02 eq 0 or va02 gt posy
-						seta va50 targ
-						setv va02 posy
-					endi
-				endi
-			endi
-		endi
-	next
-
-	targ ownr
-* Check if there is an active lift under this lift
-	doif va02 eq 0
-* If not, stim disappointment
-		stim writ from 0 1
-		urge writ from 26 -1 -1 2
-	else
-* If yes, do stuff!
-* Animate
-		part 2
-		anim [1 1]
-		over
-		anim [0 0]
-* Check if comand from hand
-		doif from eq pntr
-* animate pointer
-			mesg writ pntr 101
-* move camera to other lift
-			targ va50
-			cmrp posx posy 1
-		endi
-* Check if command from creature
-		targ from
-		doif fmly eq 4
-			targ va50
-			setv va00 posx
-			setv va01 posy
-			targ from
-			doif movs eq 0 and tmvf va00 va01 eq 1
-** move creature
-				mvft va00 va01
-** wait, stim writ travelled lift, stim writ, -go down
-				stim writ targ 75 1
-				stim writ targ 94 1
-				stim writ targ 52 -0.5
-** Discourage from pulling elevator any further
-				urge writ targ 26 -2 -1 2
-			endi
-		endi
-	endi
-	unlk
-endm
 
 *
 ** PUSH (go up)
 scrp 3 1 21834 1
-	lock
 * Check if lift is enabled
 	doif ov02 ne 1
 		stop
@@ -164,66 +111,497 @@ scrp 3 1 21834 1
 			endi
 		endi
 	next
+	slow
 
 	targ ownr
+*	Stop here if whatever activated you is invalid
+	doif from = null
+		stop
+	endi
+
 * Check if there is an active lift above this lift
 	doif va02 eq 0
 * If not, stim disappointment
-		stim writ from 0 1
-		urge writ from 26 -1 -1 2
+*		doif crea from = 1
+*			stim writ from 0 1
+*		endi
+*		urge writ from 26 -1 -1 2
 	else
 * If yes, do stuff!
 * Animate
-		part 3
-		anim [1 1]
-		over
-		anim [0 0]
+*		part 3
+*		anim [1 1]
+*		over
+*		anim [0 0]
 
-* Check if comand from hand
+		lock
+* 		Check if command from hand
 		doif from eq pntr
-* animate pointer
+* 			animate pointer
 			mesg writ pntr 101
-* move camera to other lift
+
+			targ ownr
+*			Animate the button
+			part 3
+			anim [1 1]
+			over
+			anim [0]
+			part 0
+
+* 			Target the other lift
 			targ va50
-			cmrp posx posy 1
-		endi
-* Check if command from creature
-		targ from
-		doif fmly eq 4
-			targ va50
+*			Get its position
 			setv va00 posx
 			setv va01 posy
-			targ from
-			doif movs eq 0 and tmvf va00 va01 eq 1
-** move creature
-				mvft va00 va01
-** stim writ wait & travelled lift & -go up
-				stim writ targ 75 1
-				stim writ targ 94 10
-				stim writ targ 51 -0.5
-** Discourage from pushing elevator any further
-				urge writ targ 26 -2 -1 2
+			setv va02 posb
+			subv va02 5
+*			Reset noise variable
+			setv va99 0
+*			Are you touching any creatures?
+			inst
+			etch 4 0 0
+				doif targ <> null
+*					If they're not being carried and can safely move to the other eleplant...
+					doif movs = 0 and tmvf va00 va02 = 1
+*						Move 'em, move 'em
+						mvft va00 va02
+*						Just to make absolutely sure they're creatures
+						doif crea targ = 1
+*							Stim them with "traveled in lift"
+							stim writ targ 94 1
+						endi
+*						Set noise variable; don't want the noise to play (amount of creatures) times
+						setv va99 1
+					endi
+				endi
+			next
+			slow
+
+*			Play teleporter noise if successful move
+			doif va99 = 1
+				sndc "tele"
+			endi
+*			Center camera on other lift
+			cmrp va00 va01 1
+		else
+*			Is it a creature?
+			doif crea from = 1
+*				Tell it to wait
+				stim writ from 75 1
+
+				targ ownr
+*				Animate part to give creature time to process wait
+				part 3
+*				frat 3
+				anim [0 1 0 1 0 1 0 1 0 1]
+				over
+				anim [0]
+				part 0
+
+*				Get position of the other lift
+				targ va50
+				setv va00 posx
+				setv va01 posb
+				subv va01 5
+				targ from
+				inst
+*				Does it still exist?
+				doif targ = null
+*					Make fail noise
+					targ ownr
+					sndc "buzz"
+				else
+*					If you can move safely....
+					doif tmvf va00 va01 eq 1
+*					Are you being carried?
+						doif movs <> 0
+*							Check to see if it's a vehicle
+							doif movs = 3
+*								If it is, tell it to dump the creature
+								seta va97 targ
+								targ carr
+								rpas targ va97
+								targ va97
+							else
+*								Remove wait
+								chem 203 -1
+								targ ownr
+*								Make fail noise and stop here
+								sndc "buzz"
+								stop
+							endi
+						endi
+*						Move it, move it
+						mvft va00 va01
+*						And stim with "traveled in lift
+						stim writ targ 94 1
+*						Make teleport noise
+						targ ownr
+						sndc "tele"
+					else
+*						Remove wait
+						chem 203 -1
+						targ ownr
+*						Make fail noise
+						sndc "buzz"
+					endi
+				endi
+				slow
+			else
+*				It's an agent trying to use the lift
+				targ ownr
+*				Animate the button
+				part 3
+				anim [1 1]
+				over
+				anim [0]
+				part 0
+
+*				Get from's height
+				targ from
+				setv va11 hght
+
+*				Get position of the other lift
+				targ va50
+				setv va00 posx
+*				Adjust position of bottom coordinate
+				setv va01 posb
+				subv va01 va11
+
+				targ from
+				inst
+*				Does it still exist?
+				doif targ = null
+*					Play fail noise
+					targ ownr
+					sndc "buzz"
+				else
+*					If it's not being carried and can safely move here....
+					doif movs = 0 and tmvt va00 va01 = 1
+*						Move it, move it
+						mvto va00 va01
+*						And play noise to indicate a successful transport
+						targ ownr
+						sndc "tele"
+					else
+*						Play fail noise
+						targ ownr
+						sndc "buzz"
+					endi
+				endi
+				slow
 			endi
 		endi
+		unlk
 	endi
-	unlk
 endm
+
+** PULL (go down)
+scrp 3 1 21834 2
+* Check if lift is enabled
+	doif ov02 ne 1
+		stop
+	endi
+* Set lift variable to warp to
+	seta va50 targ
+	setv va00 ov00
+	setv va01 posy
+	setv va02 0
+* Check all lifts to find one that's lower
+	inst
+	enum 3 1 21834
+** check if same elevator group
+		doif ov00 eq va00
+** check if enabled
+			doif ov02 eq 1
+** check if posy < original lift (lower)
+				doif posy gt va01
+** check if va02=0 or va02 greater than posy (lower lift available: take higher one)
+					doif va02 eq 0 or va02 gt posy
+						seta va50 targ
+						setv va02 posy
+					endi
+				endi
+			endi
+		endi
+	next
+	slow
+
+	targ ownr
+*	Stop here if whatever activated you is invalid
+	doif from = null
+		stop
+	endi
+
+* Check if there is an active lift above this lift
+	doif va02 eq 0
+* If not, stim disappointment
+*		doif crea from = 1
+*			stim writ from 0 1
+*		endi
+*		urge writ from 26 -1 -1 2
+	else
+* If yes, do stuff!
+* Animate
+*		part 3
+*		anim [1 1]
+*		over
+*		anim [0 0]
+
+		lock
+* 		Check if command from hand
+		doif from eq pntr
+* 			animate pointer
+			mesg writ pntr 101
+
+			targ ownr
+*			Animate the button
+			part 2
+			anim [1 1]
+			over
+			anim [0]
+			part 0
+
+* 			Target the other lift
+			targ va50
+*			Get its position
+			setv va00 posx
+			setv va01 posy
+			setv va02 posb
+			subv va02 5
+*			Reset noise variable
+			setv va99 0
+*			Are you touching any creatures?
+			inst
+			etch 4 0 0
+				doif targ <> null
+*					If they're not being carried and can safely move to the other eleplant...
+					doif movs = 0 and tmvf va00 va02 = 1
+*						Move 'em, move 'em
+						mvft va00 va02
+*						Just to make absolutely sure they're creatures
+						doif crea targ = 1
+*							Stim them with "traveled in lift"
+							stim writ targ 94 1
+						endi
+*						Set noise variable; don't want the noise to play (amount of creatures) times
+						setv va99 1
+					endi
+				endi
+			next
+			slow
+
+*			Play teleporter noise if successful move
+			doif va99 = 1
+				sndc "tele"
+			endi
+*			Center camera on other lift
+			cmrp va00 va01 1
+		else
+*			Is it a creature?
+			doif crea from = 1
+*				Tell it to wait
+				stim writ from 75 1
+
+				targ ownr
+*				Animate part to give creature time to process wait
+				part 2
+*				frat 3
+				anim [0 1 0 1 0 1 0 1 0 1]
+				over
+				anim [0]
+				part 0
+
+*				Get position of the other lift
+				targ va50
+				setv va00 posx
+				setv va01 posb
+				subv va01 5
+				targ from
+				inst
+*				Does it still exist?
+				doif targ = null
+*					Make fail noise
+					targ ownr
+					sndc "buzz"
+				else
+*					If you can move safely....
+					doif tmvf va00 va01 eq 1
+*						Are you being carried?
+						doif movs <> 0
+*							Check to see if it's a vehicle
+							doif movs = 3
+*								If it is, tell it to dump the creature
+								seta va97 targ
+								targ carr
+								rpas targ va97
+								targ va97
+							else
+*								Remove wait
+								chem 203 -1
+								targ ownr
+*								Make fail noise and stop here
+								sndc "buzz"
+								stop
+							endi
+						endi
+*						Move it, move it
+						mvft va00 va01
+*						And stim with "traveled in lift
+						stim writ targ 94 1
+*						Make teleport noise
+						targ ownr
+						sndc "tele"
+					else
+*						Remove wait
+						chem 203 -1
+						targ ownr
+*						Make fail noise
+						sndc "buzz"
+					endi
+				endi
+				slow
+			else
+*				It's an agent trying to use the lift
+				targ ownr
+*				Animate the button
+				part 2
+				anim [1 1]
+				over
+				anim [0]
+				part 0
+
+*				Get from's height
+				targ from
+				setv va11 hght
+
+*				Get position of the other lift
+				targ va50
+				setv va00 posx
+*				Adjust position of bottom coordinate
+				setv va01 posb
+				subv va01 va11
+
+				targ from
+				inst
+*				Does it still exist?
+				doif targ = null
+*					Play fail noise
+					targ ownr
+					sndc "buzz"
+				else
+*					If it's not being carried and can safely move here....
+					doif movs = 0 and tmvt va00 va01 = 1
+*						Move it, move it
+						mvto va00 va01
+*						And play noise to indicate a successful transport
+						targ ownr
+						sndc "tele"
+					else
+*						Play fail noise
+						targ ownr
+						sndc "buzz"
+					endi
+				endi
+				slow
+			endi
+		endi
+		unlk
+	endi
+endm
+*
+** Old Pull Script (Saved for reference)
+*scrp 3 1 18786 2
+*	lock
+* Check if lift is enabled
+*	doif ov02 ne 1
+*		stop
+*	endi
+
+* Set lift variable to warp to
+*	seta va50 targ
+*	setv va00 ov00
+*	setv va01 posy
+*	setv va02 0
+* Check all lifts to find one that's lower
+*	inst
+*	enum 3 1 18786
+** check if same elevator group
+*		doif ov00 eq va00
+** check if enabled
+*			doif ov02 eq 1
+** check if posy > original lift (lower)
+*				doif posy gt va01
+** check if va02=0 or va02 greater than posy (lower lift available: take higher up one)
+*					doif va02 eq 0 or va02 gt posy
+*						seta va50 targ
+*						setv va02 posy
+*					endi
+*				endi
+*			endi
+*		endi
+*	next
+
+*	targ ownr
+* Check if there is an active lift under this lift
+*	doif va02 eq 0
+* If not, stim disappointment
+*		stim writ from 0 1
+*		urge writ from 26 -1 -1 2
+*	else
+* If yes, do stuff!
+* Animate
+*		part 2
+*		anim [1 1]
+*		over
+*		anim [0 0]
+* Check if comand from hand
+*		doif from eq pntr
+* animate pointer
+*			mesg writ pntr 101
+* move camera to other lift
+*			targ va50
+*			cmrp posx posy 1
+*		endi
+* Check if command from creature
+*		targ from
+*		doif fmly eq 4
+*			targ va50
+*			setv va00 posx
+*			setv va01 posy
+*			targ from
+*			doif movs eq 0 and tmvf va00 va01 eq 1
+** move creature
+*				mvft va00 va01
+** wait, stim writ travelled lift, stim writ, -go down
+*				stim writ targ 75 1
+*				stim writ targ 94 1
+*				stim writ targ 52 -0.5
+** Discourage from pulling elevator any further
+*				urge writ targ 26 -2 -1 2
+*			endi
+*		endi
+*	endi
+*	unlk
+*endm
 
 *
 ** ENABLE/DISABLE
 scrp 3 1 21834 500
 	doif ov02 eq 1
-		attr 16
+		attr 208
 		setv ov02 0
 		part 4
 		base 2
 		anim [0]
+*		anim [0 0 0 0 0 1 255]
 	else
-		attr 0
+		attr 192
 		setv ov02 1
 		part 4
 		base 0
 		anim [0]
+*		anim [0 0 0 0 0 1 255]
 	endi
 endm
 
@@ -247,3 +625,4 @@ next
 
 scrx 3 1 21834 1
 scrx 3 1 21834 2
+scrx 3 1 21834 500

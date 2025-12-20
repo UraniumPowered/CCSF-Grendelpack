@@ -20,7 +20,7 @@
 *# DS-Name "GP - Nudibranch"
 *# attach gp_nudioxy_JESS.c16 
 *# depend blnk.c16
-*# desc = "Cute nudibranches to liven up your aquatic areas.\nSprites by Jesseth, coding by Pilla"
+*# desc = "Cute nudibranches to liven up your aquatic areas.by Jesseth, coding by Pilla"
 *# Agent Animation File = "gp_nudioxy_JESS.c16"
 *# Agent Sprite First Image = 32
 *# Agent Animation Gallery = "gp_nudioxy_JESS"
@@ -213,19 +213,19 @@ endm
 scrp 2 15 21851 1
 ** stim "push animal"
 	stim writ from 86 1
-	velo rand -3 3 -1 1
+	velo rand -3 3 rand -1 1
 endm
 
 scrp 2 15 21851 2
 ** stim "push animal"
 	stim writ from 86 1
-	velo rand -3 3 -1 1
+	velo rand -3 3 rand -1 1
 endm
 
 scrp 2 15 21851 3
 ** stim "hit animal"
 	stim writ from 87 1
-	velo rand -3 3 -1 1
+	velo rand -3 3 rand -1 1
 endm
 
 **

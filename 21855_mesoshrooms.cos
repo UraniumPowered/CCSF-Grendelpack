@@ -14,12 +14,15 @@ scrp 1 1 21855 9
 	aero 1
 	fric 90
 	elas 10
+	doif tmvt va05 va06 ne 1
+		kill targ
+	endi
+	mvsf va05 va06
 ** timer
 	setv ov00 0
 	alph 255 1
 	tick 120
 	addv va05 rand -150 150
-	mvsf va05 va06
 endm
 
 **
@@ -52,7 +55,7 @@ scrp 2 11 21855 9
 			setv ov00 1
 			tick rand 1000 2000
 			alph 0 0
-			attr 194
+			attr 0
 			emit 8 0.6
 		else
 			kill ownr

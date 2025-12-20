@@ -290,7 +290,7 @@ endm
 scrp 2 21 21832 3
 	lock
 	stim writ from 97 1
-	stim writ from 92 1
+*	stim writ from 92 1
 	wait 5
 	targ from
 	drop
